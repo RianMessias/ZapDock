@@ -183,6 +183,37 @@ async function setSoundEnabled(value) {
   return state;
 }
 
+async function openSidePanel() {
+  const [tab] = await chrome.tabs.query({ active: true, lastFocusedWindow: true });
+
+  if (!tab) {
+    return { opened: false, error: "no_tab" };
+  }
+
+  try {
+    await chrome.sidePanel.open({ windowId: tab.windowId });
+    await chrome.storage.local.set({ panelMode: "sidepanel" });
+    return { opened: true };
+  } catch (error) {
+    console.warn("ZapDock não conseguiu abrir o painel lateral:", error);
+    return { opened: false, error: String(error) };
+  }
+}
+
+async function getPanelMode() {
+  const { panelMode = "popup" } = await chrome.storage.local.get("panelMode");
+  return { mode: panelMode };
+}
+
+async function setPanelMode(mode) {
+  const valid = mode === "popup" || mode === "sidepanel";
+  if (!valid) {
+    return { mode: "popup" };
+  }
+  await chrome.storage.local.set({ panelMode: mode });
+  return { mode };
+}
+
 chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
   if (!message?.type?.startsWith("zapdock:")) {
     return false;
@@ -196,6 +227,12 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
     task = getNotificationState();
   } else if (message.type === "zapdock:set-sound") {
     task = setSoundEnabled(message.soundEnabled);
+  } else if (message.type === "zapdock:open-sidepanel") {
+    task = openSidePanel();
+  } else if (message.type === "zapdock:get-panel-mode") {
+    task = getPanelMode();
+  } else if (message.type === "zapdock:set-panel-mode") {
+    task = setPanelMode(message.mode);
   } else {
     return false;
   }

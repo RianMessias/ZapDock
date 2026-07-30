@@ -1,0 +1,26 @@
+:root {
+  --whatsapp-scale: 0.48;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
+
+.frame-area {
+  width: 100%;
+  height: calc(100% - 44px);
+}
+
+@media (min-width: 500px) {
+  :root {
+    --whatsapp-scale: 0.55;
+  }
+}
+
+@media (min-width: 650px) {
+  :root {
+    --whatsapp-scale: 0.65;
+  }
+}
