@@ -3,21 +3,14 @@ const MINIMUM_LOADER_TIME_MS = 450;
 const SLOW_LOAD_NOTICE_MS = 12000;
 
 const frame = document.querySelector("#whatsappFrame");
-const frameArea = document.querySelector("#frameArea");
 const loader = document.querySelector("#loader");
 const slowNotice = document.querySelector("#slowNotice");
-const frameStatus = document.querySelector("#frameStatus");
 const connectionText = document.querySelector("#connectionText");
-const notificationStatus = document.querySelector("#notificationStatus");
 const reloadButton = document.querySelector("#reloadButton");
 const openTabButton = document.querySelector("#openTabButton");
 const loginTabButton = document.querySelector("#loginTabButton");
 const soundToggle = document.querySelector("#soundToggle");
 const messageBadge = document.querySelector("#messageBadge");
-const sidePanelToggle = document.querySelector("#sidePanelToggle");
-const panelNotice = document.querySelector("#panelNotice");
-const openSidePanelButton = document.querySelector("#openSidePanelButton");
-const switchToPopupButton = document.querySelector("#switchToPopupButton");
 
 let loadStartedAt = performance.now();
 let slowNoticeTimer = null;
@@ -25,24 +18,10 @@ let notificationState = {
   unreadCount: 0,
   soundEnabled: true
 };
-let lastAnnouncedUnreadCount = null;
-let hasUserInteractedWithSound = false;
 
 function setConnectionState(state, label) {
   document.body.dataset.state = state;
   connectionText.textContent = label;
-  connectionText.parentElement.setAttribute("aria-label", `Estado: ${label}`);
-
-  if (state === "ready") {
-    frameArea.setAttribute("aria-busy", "false");
-    frameStatus.textContent = "WhatsApp pronto para uso.";
-  } else if (state === "offline") {
-    frameArea.setAttribute("aria-busy", "true");
-    frameStatus.textContent = "Sem conexão com a internet.";
-  } else {
-    frameArea.setAttribute("aria-busy", "true");
-    frameStatus.textContent = "Carregando o WhatsApp.";
-  }
 }
 
 function scheduleSlowNotice() {
@@ -58,7 +37,6 @@ function scheduleSlowNotice() {
 function loadWhatsApp() {
   loadStartedAt = performance.now();
   loader.classList.remove("is-hidden");
-  loader.setAttribute("aria-busy", "true");
   setConnectionState(navigator.onLine ? "loading" : "offline", navigator.onLine ? "conectando" : "sem internet");
   scheduleSlowNotice();
   frame.src = WHATSAPP_URL;
@@ -70,7 +48,6 @@ async function revealFrame() {
       return;
     }
   } catch {
-    // O acesso falha quando a navegação já chegou ao WhatsApp, como esperado.
   }
 
   const elapsed = performance.now() - loadStartedAt;
@@ -80,7 +57,6 @@ async function revealFrame() {
   clearTimeout(slowNoticeTimer);
   slowNotice.hidden = true;
   setConnectionState("ready", "painel ativo");
-  loader.setAttribute("aria-busy", "false");
   loader.classList.add("is-hidden");
 }
 
@@ -118,13 +94,6 @@ function applyNotificationState({ unreadCount = 0, soundEnabled = true }) {
       : "Ativar som de novas mensagens"
   );
   soundToggle.title = soundEnabled ? "Desativar som" : "Ativar som";
-
-  if (lastAnnouncedUnreadCount !== normalizedCount) {
-    notificationStatus.textContent = normalizedCount === 0
-      ? "Nenhuma mensagem não lida."
-      : `${normalizedCount === 1 ? "1 mensagem" : `${countLabel} mensagens`} não lida${normalizedCount === 1 ? "" : "s"}.`;
-    lastAnnouncedUnreadCount = normalizedCount;
-  }
 }
 
 function requestNotificationState() {
@@ -133,30 +102,17 @@ function requestNotificationState() {
       return;
     }
 
-    applyRemoteNotificationState(state);
-  });
-}
-
-function applyRemoteNotificationState(state) {
-  applyNotificationState({
-    unreadCount: state.unreadCount,
-    soundEnabled: hasUserInteractedWithSound
-      ? notificationState.soundEnabled
-      : state.soundEnabled
+    applyNotificationState(state);
   });
 }
 
 function toggleSound() {
-  hasUserInteractedWithSound = true;
   const soundEnabled = soundToggle.getAttribute("aria-pressed") !== "true";
 
   applyNotificationState({
     unreadCount: notificationState.unreadCount,
     soundEnabled
   });
-  notificationStatus.textContent = soundEnabled
-    ? "Alertas sonoros ativados."
-    : "Alertas sonoros silenciados.";
 
   chrome.runtime.sendMessage(
     { type: "zapdock:set-sound", soundEnabled },
@@ -168,62 +124,15 @@ function toggleSound() {
   );
 }
 
-async function checkPanelMode() {
-  try {
-    const response = await chrome.runtime.sendMessage({ type: "zapdock:get-panel-mode" });
-
-    if (response?.mode === "sidepanel") {
-      frame.hidden = true;
-      loader.classList.add("is-hidden");
-      loader.setAttribute("aria-busy", "false");
-      setConnectionState("ready", "painel lateral");
-      sidePanelToggle.classList.add("active");
-      panelNotice.hidden = false;
-      return;
-    }
-  } catch {
-  }
-
-  startPopupMode();
-}
-
-function startPopupMode() {
-  sidePanelToggle.classList.remove("active");
-  panelNotice.hidden = true;
-  frame.hidden = false;
-  loadWhatsApp();
-}
-
-async function openSidePanel() {
-  const response = await chrome.runtime.sendMessage({ type: "zapdock:open-sidepanel" });
-
-  if (response?.opened) {
-    sidePanelToggle.classList.add("active");
-    frame.hidden = true;
-    loader.classList.add("is-hidden");
-    loader.setAttribute("aria-busy", "false");
-    setConnectionState("ready", "painel lateral");
-    panelNotice.hidden = false;
-  }
-}
-
-async function switchToPopup() {
-  await chrome.runtime.sendMessage({ type: "zapdock:set-panel-mode", mode: "popup" });
-  startPopupMode();
-}
-
 frame.addEventListener("load", revealFrame);
 reloadButton.addEventListener("click", loadWhatsApp);
 openTabButton.addEventListener("click", openWhatsAppTab);
 loginTabButton.addEventListener("click", openWhatsAppTab);
 soundToggle.addEventListener("click", toggleSound);
-sidePanelToggle.addEventListener("click", openSidePanel);
-openSidePanelButton.addEventListener("click", openSidePanel);
-switchToPopupButton.addEventListener("click", switchToPopup);
 
 chrome.runtime.onMessage.addListener((message) => {
   if (message?.type === "zapdock:state") {
-    applyRemoteNotificationState(message.state);
+    applyNotificationState(message.state);
   }
 });
 
@@ -237,27 +146,5 @@ window.addEventListener("offline", () => {
   setConnectionState("offline", "sem internet");
 });
 
-document.addEventListener("keydown", (event) => {
-  const key = event.key.toLowerCase();
-
-  if (event.altKey && event.shiftKey && !event.ctrlKey && !event.metaKey && key === "r") {
-    event.preventDefault();
-    loadWhatsApp();
-    reloadButton.focus();
-    return;
-  }
-
-  if (event.altKey && event.shiftKey && !event.ctrlKey && !event.metaKey && key === "s") {
-    event.preventDefault();
-    toggleSound();
-    soundToggle.focus();
-    return;
-  }
-
-  if (event.key === "Escape") {
-    window.close();
-  }
-});
-
 requestNotificationState();
-checkPanelMode();
+loadWhatsApp();

@@ -44,6 +44,16 @@ async function testEmbeddingRule() {
     offscreen: {
       async createDocument() {}
     },
+    sidePanel: {
+      async open() {
+        return true;
+      }
+    },
+    tabs: {
+      async query() {
+        return [{ windowId: 1 }];
+      }
+    },
     storage: {
       local: {
         async get(keys) {
@@ -129,6 +139,7 @@ function testExtensionFiles() {
     true
   );
   assert.equal(manifest.permissions.includes("offscreen"), true);
+  assert.equal(manifest.permissions.includes("sidePanel"), true);
   assert.equal(manifest.permissions.includes("storage"), true);
   assert.deepEqual(manifest.host_permissions, [
     "https://web.whatsapp.com/*"
@@ -138,6 +149,7 @@ function testExtensionFiles() {
     "whatsapp-observer.js"
   ]);
   assert.equal(Object.hasOwn(manifest, "options_page"), false);
+  assert.equal(manifest.side_panel.default_path, "sidepanel.html");
 
   for (const size of [16, 32, 48, 128]) {
     const iconPath = path.join(projectRoot, `icons/icon-${size}.png`);
@@ -148,13 +160,56 @@ function testExtensionFiles() {
   assert.match(html, /id="reloadButton"/);
   assert.match(html, /id="soundToggle"/);
   assert.match(html, /id="messageBadge"/);
+  assert.match(html, /aria-label="Controles do ZapDock"/);
+  assert.match(html, /id="connectionStatus"[^>]+role="status"/s);
+  assert.match(html, /id="frameArea"[^>]+aria-busy="true"/s);
+  assert.match(html, /id="notificationStatus"[^>]+aria-live="polite"/s);
+  assert.match(html, /aria-keyshortcuts="Alt\+Shift\+R"/);
+  assert.match(html, /aria-keyshortcuts="Alt\+Shift\+S"/);
   assert.match(html, /allow="autoplay; camera; microphone;/);
   assert.match(css, /width: 800px/);
   assert.match(css, /height: 600px/);
   assert.match(css, /--whatsapp-scale: 0\.86/);
   assert.match(css, /prefers-reduced-motion/);
+  assert.match(css, /\.sr-only/);
+  assert.match(css, /forced-colors: active/);
+  assert.match(css, /button:focus-visible/);
   assert.match(popupScript, /https:\/\/web\.whatsapp\.com\//);
+  assert.match(popupScript, /event\.altKey/);
+  assert.match(popupScript, /notificationStatus\.textContent/);
+  assert.match(popupScript, /hasUserInteractedWithSound/);
+  assert.match(popupScript, /checkPanelMode/);
+  assert.match(popupScript, /zapdock:open-sidepanel/);
+  assert.match(popupScript, /zapdock:get-panel-mode/);
+  assert.match(popupScript, /sidePanelToggle/);
+  assert.match(html, /id="sidePanelToggle"/);
+  assert.match(html, /id="panelNotice"/);
+  assert.match(html, /id="openSidePanelButton"/);
+  assert.match(html, /id="switchToPopupButton"/);
   assert.doesNotMatch(popupScript, /contentDocument|contentWindow\.document/);
+
+  const sidepanelHtml = fs.readFileSync(
+    path.join(projectRoot, "sidepanel.html"),
+    "utf8"
+  );
+  const sidepanelCss = fs.readFileSync(
+    path.join(projectRoot, "sidepanel.css"),
+    "utf8"
+  );
+  const sidepanelScript = fs.readFileSync(
+    path.join(projectRoot, "sidepanel.js"),
+    "utf8"
+  );
+
+  assert.match(sidepanelHtml, /name="zapdock-sidepanel"/);
+  assert.match(sidepanelHtml, /id="whatsappFrame"/);
+  assert.match(sidepanelHtml, /id="soundToggle"/);
+  assert.match(sidepanelHtml, /id="reloadButton"/);
+  assert.match(sidepanelHtml, /Painel Lateral/);
+  assert.match(sidepanelScript, /https:\/\/web\.whatsapp\.com\//);
+  assert.match(sidepanelScript, /zapdock:get-state/);
+  assert.match(sidepanelScript, /zapdock:set-sound/);
+  assert.match(sidepanelCss, /--whatsapp-scale: 0\.48/);
 
   const observerScript = fs.readFileSync(
     path.join(projectRoot, "whatsapp-observer.js"),
@@ -163,12 +218,16 @@ function testExtensionFiles() {
   assert.match(observerScript, /mensagens\?\\s\+não\\s\+lidas\?/);
   assert.match(observerScript, /querySelectorAll\("\[aria-label\]"\)/);
   assert.match(observerScript, /attributeFilter/);
+  assert.match(observerScript, /zapdock-sidepanel/);
 
   for (const file of [
     "background.js",
     "offscreen.html",
     "offscreen.js",
-    "whatsapp-observer.js"
+    "whatsapp-observer.js",
+    "sidepanel.html",
+    "sidepanel.js",
+    "sidepanel.css"
   ]) {
     assert.equal(
       fs.existsSync(path.join(projectRoot, file)),

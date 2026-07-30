@@ -4,7 +4,9 @@
       ? "monitor"
       : window.name === "zapdock-popup"
         ? "popup"
-        : null;
+        : window.name === "zapdock-sidepanel"
+          ? "sidepanel"
+          : null;
 
   if (!source) {
     return;
