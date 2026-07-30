@@ -1,0 +1,56 @@
+{
+  "manifest_version": 3,
+  "name": "ZapDock — WhatsApp compacto",
+  "short_name": "ZapDock",
+  "version": "1.0.0",
+  "description": "WhatsApp Web compacto com alerta sonoro e contador de mensagens não lidas.",
+  "minimum_chrome_version": "145",
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_title": "Abrir painel do WhatsApp",
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon-16.png",
+      "32": "icons/icon-32.png",
+      "48": "icons/icon-48.png",
+      "128": "icons/icon-128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon-16.png",
+    "32": "icons/icon-32.png",
+    "48": "icons/icon-48.png",
+    "128": "icons/icon-128.png"
+  },
+  "permissions": [
+    "declarativeNetRequestWithHostAccess",
+    "offscreen",
+    "storage"
+  ],
+  "host_permissions": [
+    "https://web.whatsapp.com/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://web.whatsapp.com/*"
+      ],
+      "js": [
+        "whatsapp-observer.js"
+      ],
+      "all_frames": true,
+      "run_at": "document_idle"
+    }
+  ],
+  "commands": {
+    "_execute_action": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+Y",
+        "mac": "Command+Shift+Y"
+      },
+      "description": "Abrir o painel ancorado do WhatsApp"
+    }
+  }
+}

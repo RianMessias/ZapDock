@@ -1,0 +1,9 @@
+# Artefatos locais de validação e empacotamento
+artifacts/
+release/
+*.zip
+
+# Arquivos temporários do sistema e dos editores
+.DS_Store
+Thumbs.db
+*.log

@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="dark" />
+    <title>ZapDock</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <header class="dock-bar">
+      <div class="dock-brand">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 40 40">
+            <path class="bubble" d="M20 4.5c8.6 0 15.5 6 15.5 13.4 0 7.5-6.9 13.5-15.5 13.5-1.9 0-3.8-.3-5.5-.9L7.2 35l1.9-7.4a12.5 12.5 0 0 1-4.6-9.7C4.5 10.5 11.4 4.5 20 4.5Z"/>
+            <path class="letter" d="M12.8 13.7h12.5v3l-8 7.2h8v3.1H12.8v-3l8-7.2h-8v-3.1Zm14.5 0h2.4V27h-2.4V13.7Z"/>
+          </svg>
+        </span>
+        <span class="brand-copy">
+          <strong>ZapDock</strong>
+          <small><i id="connectionDot"></i><span id="connectionText">conectando</span></small>
+        </span>
+      </div>
+
+      <div class="dock-actions">
+        <span
+          class="message-badge"
+          id="messageBadge"
+          aria-label="Nenhuma mensagem não lida"
+          hidden
+        >0</span>
+        <button
+          id="soundToggle"
+          class="sound-toggle"
+          type="button"
+          aria-label="Desativar som de novas mensagens"
+          title="Desativar som"
+          aria-pressed="true"
+        >
+          <svg class="sound-on-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M18 8a6 6 0 0 1 0 8M15.5 10.5a2.4 2.4 0 0 1 0 3"/>
+            <path d="M5 10h3l4-3v10l-4-3H5z"/>
+          </svg>
+          <svg class="sound-off-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M5 10h3l4-3v10l-4-3H5zM16 10l4 4M20 10l-4 4"/>
+          </svg>
+        </button>
+        <button id="reloadButton" type="button" aria-label="Recarregar WhatsApp" title="Recarregar">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M20 6v5h-5M4 18v-5h5"/>
+            <path d="M6.1 9A7 7 0 0 1 18.7 7.7L20 11M4 13l1.3 3.3A7 7 0 0 0 17.9 15"/>
+          </svg>
+        </button>
+        <button id="openTabButton" type="button" aria-label="Abrir WhatsApp em uma aba" title="Abrir em uma aba">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M14 5h5v5M19 5l-8 8"/>
+            <path d="M18 13v5a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <main class="frame-area">
+      <iframe
+        id="whatsappFrame"
+        name="zapdock-popup"
+        title="WhatsApp Web"
+        allow="autoplay; camera; microphone; clipboard-read; clipboard-write; fullscreen"
+        referrerpolicy="strict-origin-when-cross-origin"
+      ></iframe>
+
+      <section class="loader" id="loader" aria-live="polite">
+        <div class="loader-orbit" aria-hidden="true">
+          <span class="loader-logo">
+            <svg viewBox="0 0 40 40">
+              <path d="M20 4.5c8.6 0 15.5 6 15.5 13.4 0 7.5-6.9 13.5-15.5 13.5-1.9 0-3.8-.3-5.5-.9L7.2 35l1.9-7.4a12.5 12.5 0 0 1-4.6-9.7C4.5 10.5 11.4 4.5 20 4.5Z"/>
+            </svg>
+          </span>
+        </div>
+        <strong>Preparando seu WhatsApp</strong>
+        <p>A sessão usada é a mesma do navegador.</p>
+        <div class="loading-line" aria-hidden="true"><i></i></div>
+      </section>
+
+      <aside class="slow-notice" id="slowNotice" hidden>
+        <span>
+          Está demorando? Faça o login uma vez em uma aba e abra o painel novamente.
+        </span>
+        <button id="loginTabButton" type="button">Abrir para login</button>
+      </aside>
+    </main>
+
+    <script src="popup.js"></script>
+  </body>
+</html>
