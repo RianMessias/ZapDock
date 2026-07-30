@@ -41,6 +41,8 @@ vez e depois reabra o ZapDock.
 - O botão de som no cabeçalho ativa ou silencia o alerta; a escolha fica salva.
 - `Ctrl+Shift+Y` também abre o painel.
 - O botão de recarregar reinicia apenas o WhatsApp dentro do painel.
+- Os atalhos `Alt+Shift+R` (recarregar) e `Alt+Shift+S` (alternar som) funcionam
+  enquanto o painel estiver focado.
 - Ao clicar fora do painel, ele fecha automaticamente. Esse comportamento é
   controlado pelo próprio Edge/Chrome.
 
