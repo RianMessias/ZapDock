@@ -35,13 +35,13 @@ function setConnectionState(state, label) {
 
   if (state === "ready") {
     frameArea.setAttribute("aria-busy", "false");
-    frameStatus.textContent = "WhatsApp pronto para uso.";
+    frameStatus.textContent = chrome.i18n.getMessage("statusReady");
   } else if (state === "offline") {
     frameArea.setAttribute("aria-busy", "true");
-    frameStatus.textContent = "Sem conexão com a internet.";
+    frameStatus.textContent = chrome.i18n.getMessage("statusOffline");
   } else {
     frameArea.setAttribute("aria-busy", "true");
-    frameStatus.textContent = "Carregando o WhatsApp.";
+    frameStatus.textContent = chrome.i18n.getMessage("statusLoading");
   }
 }
 
@@ -59,7 +59,7 @@ function loadWhatsApp() {
   loadStartedAt = performance.now();
   loader.classList.remove("is-hidden");
   loader.setAttribute("aria-busy", "true");
-  setConnectionState(navigator.onLine ? "loading" : "offline", navigator.onLine ? "conectando" : "sem internet");
+  setConnectionState(navigator.onLine ? "loading" : "offline", navigator.onLine ? chrome.i18n.getMessage("stateConnecting") : chrome.i18n.getMessage("stateOffline"));
   scheduleSlowNotice();
   frame.src = WHATSAPP_URL;
 }
@@ -79,7 +79,7 @@ async function revealFrame() {
   await new Promise((resolve) => setTimeout(resolve, remaining));
   clearTimeout(slowNoticeTimer);
   slowNotice.hidden = true;
-  setConnectionState("ready", "painel ativo");
+  setConnectionState("ready", chrome.i18n.getMessage("stateReady"));
   loader.setAttribute("aria-busy", "false");
   loader.classList.add("is-hidden");
 }
@@ -105,24 +105,18 @@ function applyNotificationState({ unreadCount = 0, soundEnabled = true }) {
   messageBadge.hidden = normalizedCount === 0;
   messageBadge.setAttribute(
     "aria-label",
-    normalizedCount === 1
-      ? "1 mensagem não lida"
-      : `${normalizedCount} mensagens não lidas`
+    normalizedCount === 1 ? chrome.i18n.getMessage("unreadMessageSingularAria") : chrome.i18n.getMessage("unreadMessagePluralAria", [String(normalizedCount)])
   );
 
   soundToggle.setAttribute("aria-pressed", String(Boolean(soundEnabled)));
   soundToggle.setAttribute(
     "aria-label",
-    soundEnabled
-      ? "Desativar som de novas mensagens"
-      : "Ativar som de novas mensagens"
+    soundEnabled ? chrome.i18n.getMessage("soundDisableAria") : chrome.i18n.getMessage("soundEnableAria")
   );
-  soundToggle.title = soundEnabled ? "Desativar som" : "Ativar som";
+  soundToggle.title = soundEnabled ? chrome.i18n.getMessage("soundDisableTitle") : chrome.i18n.getMessage("soundEnableTitle");
 
   if (lastAnnouncedUnreadCount !== normalizedCount) {
-    notificationStatus.textContent = normalizedCount === 0
-      ? "Nenhuma mensagem não lida."
-      : `${normalizedCount === 1 ? "1 mensagem" : `${countLabel} mensagens`} não lida${normalizedCount === 1 ? "" : "s"}.`;
+    notificationStatus.textContent = normalizedCount === 0 ? chrome.i18n.getMessage("noUnreadText") : (normalizedCount === 1 ? chrome.i18n.getMessage("unreadMessageSingularText") : chrome.i18n.getMessage("unreadMessagePluralText", [countLabel]));
     lastAnnouncedUnreadCount = normalizedCount;
   }
 }
@@ -154,9 +148,7 @@ function toggleSound() {
     unreadCount: notificationState.unreadCount,
     soundEnabled
   });
-  notificationStatus.textContent = soundEnabled
-    ? "Alertas sonoros ativados."
-    : "Alertas sonoros silenciados.";
+  notificationStatus.textContent = soundEnabled ? chrome.i18n.getMessage("notificationSoundEnabled") : chrome.i18n.getMessage("notificationSoundDisabled");
 
   chrome.runtime.sendMessage(
     { type: "zapdock:set-sound", soundEnabled },
@@ -176,7 +168,7 @@ async function checkPanelMode() {
       frame.hidden = true;
       loader.classList.add("is-hidden");
       loader.setAttribute("aria-busy", "false");
-      setConnectionState("ready", "painel lateral");
+      setConnectionState("ready", chrome.i18n.getMessage("stateSidepanel"));
       sidePanelToggle.classList.add("active");
       panelNotice.hidden = false;
       return;
@@ -202,7 +194,7 @@ async function openSidePanel() {
     frame.hidden = true;
     loader.classList.add("is-hidden");
     loader.setAttribute("aria-busy", "false");
-    setConnectionState("ready", "painel lateral");
+    setConnectionState("ready", chrome.i18n.getMessage("stateSidepanel"));
     panelNotice.hidden = false;
   }
 }

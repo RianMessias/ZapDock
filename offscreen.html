@@ -1,8 +1,8 @@
 <!doctype html>
-<html lang="pt-BR">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Monitor do ZapDock</title>
+    <title data-i18n="offscreenTitle">Monitor do ZapDock</title>
     <style>
       html,
       body,
@@ -18,10 +18,12 @@
     <iframe
       name="zapdock-monitor"
       title="Monitor de mensagens não lidas do WhatsApp"
+      data-i18n-title="offscreenIframeTitle"
       src="https://web.whatsapp.com/"
       allow="autoplay"
       referrerpolicy="strict-origin-when-cross-origin"
     ></iframe>
+    <script src="i18n.js"></script>
     <script src="offscreen.js"></script>
   </body>
 </html>

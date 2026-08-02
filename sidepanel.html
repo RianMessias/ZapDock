@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="pt-BR">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -19,7 +19,7 @@
         </span>
         <span class="brand-copy">
           <strong>ZapDock</strong>
-          <small><i id="connectionDot"></i><span id="connectionText">conectando</span></small>
+          <small><i id="connectionDot"></i><span id="connectionText" data-i18n="stateConnecting">conectando</span></small>
         </span>
       </div>
 
@@ -27,15 +27,15 @@
         <span
           class="message-badge"
           id="messageBadge"
-          aria-label="Nenhuma mensagem não lida"
+          aria-label="Nenhuma mensagem não lida" data-i18n-aria="noUnreadMessagesAria"
           hidden
         >0</span>
         <button
           id="soundToggle"
           class="sound-toggle"
           type="button"
-          aria-label="Desativar som de novas mensagens"
-          title="Desativar som"
+          aria-label="Desativar som de novas mensagens" data-i18n-aria="soundDisableAria"
+          title="Desativar som" data-i18n-title="soundDisableTitle"
           aria-pressed="true"
         >
           <svg class="sound-on-icon" viewBox="0 0 24 24" aria-hidden="true">
@@ -46,13 +46,13 @@
             <path d="M5 10h3l4-3v10l-4-3H5zM16 10l4 4M20 10l-4 4"/>
           </svg>
         </button>
-        <button id="reloadButton" type="button" aria-label="Recarregar WhatsApp" title="Recarregar">
+        <button id="reloadButton" type="button" aria-label="Recarregar WhatsApp" data-i18n-aria="reloadAria" title="Recarregar" data-i18n-title="reloadTitle">
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <path d="M20 6v5h-5M4 18v-5h5"/>
             <path d="M6.1 9A7 7 0 0 1 18.7 7.7L20 11M4 13l1.3 3.3A7 7 0 0 0 17.9 15"/>
           </svg>
         </button>
-        <button id="openTabButton" type="button" aria-label="Abrir WhatsApp em uma aba" title="Abrir em uma aba">
+        <button id="openTabButton" type="button" aria-label="Abrir WhatsApp em uma aba" data-i18n-aria="openTabAria" title="Abrir em uma aba" data-i18n-title="openTabTitle">
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <path d="M14 5h5v5M19 5l-8 8"/>
             <path d="M18 13v5a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/>
@@ -78,19 +78,20 @@
             </svg>
           </span>
         </div>
-        <strong>Preparando seu WhatsApp</strong>
-        <p>A sessão usada é a mesma do navegador.</p>
+        <strong data-i18n="preparingWhatsApp">Preparando seu WhatsApp</strong>
+        <p data-i18n="sessionInfo">A sessão usada é a mesma do navegador.</p>
         <div class="loading-line" aria-hidden="true"><i></i></div>
       </section>
 
       <aside class="slow-notice" id="slowNotice" hidden>
         <span>
-          Está demorando? Faça o login uma vez em uma aba e abra o painel novamente.
+          <span data-i18n="slowNotice">Está demorando? Faça o login uma vez em uma aba e abra o painel novamente.</span>
         </span>
-        <button id="loginTabButton" type="button">Abrir para login</button>
+        <button id="loginTabButton" type="button" data-i18n="openLoginTab">Abrir para login</button>
       </aside>
     </main>
 
+    <script src="i18n.js"></script>
     <script src="sidepanel.js"></script>
   </body>
 </html>

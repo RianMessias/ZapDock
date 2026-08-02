@@ -37,7 +37,7 @@ function scheduleSlowNotice() {
 function loadWhatsApp() {
   loadStartedAt = performance.now();
   loader.classList.remove("is-hidden");
-  setConnectionState(navigator.onLine ? "loading" : "offline", navigator.onLine ? "conectando" : "sem internet");
+  setConnectionState(navigator.onLine ? "loading" : "offline", navigator.onLine ? chrome.i18n.getMessage("stateConnecting") : chrome.i18n.getMessage("stateOffline"));
   scheduleSlowNotice();
   frame.src = WHATSAPP_URL;
 }
@@ -56,7 +56,7 @@ async function revealFrame() {
   await new Promise((resolve) => setTimeout(resolve, remaining));
   clearTimeout(slowNoticeTimer);
   slowNotice.hidden = true;
-  setConnectionState("ready", "painel ativo");
+  setConnectionState("ready", chrome.i18n.getMessage("stateReady"));
   loader.classList.add("is-hidden");
 }
 
@@ -81,19 +81,15 @@ function applyNotificationState({ unreadCount = 0, soundEnabled = true }) {
   messageBadge.hidden = normalizedCount === 0;
   messageBadge.setAttribute(
     "aria-label",
-    normalizedCount === 1
-      ? "1 mensagem não lida"
-      : `${normalizedCount} mensagens não lidas`
+    normalizedCount === 1 ? chrome.i18n.getMessage("unreadMessageSingularAria") : chrome.i18n.getMessage("unreadMessagePluralAria", [String(normalizedCount)])
   );
 
   soundToggle.setAttribute("aria-pressed", String(Boolean(soundEnabled)));
   soundToggle.setAttribute(
     "aria-label",
-    soundEnabled
-      ? "Desativar som de novas mensagens"
-      : "Ativar som de novas mensagens"
+    soundEnabled ? chrome.i18n.getMessage("soundDisableAria") : chrome.i18n.getMessage("soundEnableAria")
   );
-  soundToggle.title = soundEnabled ? "Desativar som" : "Ativar som";
+  soundToggle.title = soundEnabled ? chrome.i18n.getMessage("soundDisableTitle") : chrome.i18n.getMessage("soundEnableTitle");
 }
 
 function requestNotificationState() {

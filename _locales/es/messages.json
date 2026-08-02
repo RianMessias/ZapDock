@@ -1,0 +1,206 @@
+{
+  "extName": {
+    "message": "ZapDock — WhatsApp compacto",
+    "description": ""
+  },
+  "extShortName": {
+    "message": "ZapDock",
+    "description": ""
+  },
+  "extDescription": {
+    "message": "WhatsApp Web compacto con alertas de sonido y contador de mensajes no leídos.",
+    "description": ""
+  },
+  "actionDefaultTitle": {
+    "message": "Abrir panel de WhatsApp",
+    "description": ""
+  },
+  "commandActionDescription": {
+    "message": "Abrir el panel acoplado de WhatsApp",
+    "description": ""
+  },
+  "controlsAriaLabel": {
+    "message": "Controles de ZapDock",
+    "description": ""
+  },
+  "stateConnecting": {
+    "message": "conectando",
+    "description": ""
+  },
+  "stateReady": {
+    "message": "panel activo",
+    "description": ""
+  },
+  "stateSidepanel": {
+    "message": "panel lateral",
+    "description": ""
+  },
+  "stateOffline": {
+    "message": "sin internet",
+    "description": ""
+  },
+  "statusReady": {
+    "message": "WhatsApp listo para usar.",
+    "description": ""
+  },
+  "statusOffline": {
+    "message": "Sin conexión a internet.",
+    "description": ""
+  },
+  "statusLoading": {
+    "message": "Cargando WhatsApp.",
+    "description": ""
+  },
+  "noUnreadMessagesAria": {
+    "message": "No hay mensajes no leídos",
+    "description": ""
+  },
+  "soundDisableAria": {
+    "message": "Desactivar sonido de nuevos mensajes",
+    "description": ""
+  },
+  "soundEnableAria": {
+    "message": "Activar sonido de nuevos mensajes",
+    "description": ""
+  },
+  "soundDisableTitle": {
+    "message": "Desactivar sonido",
+    "description": ""
+  },
+  "soundEnableTitle": {
+    "message": "Activar sonido",
+    "description": ""
+  },
+  "reloadAria": {
+    "message": "Recargar WhatsApp",
+    "description": ""
+  },
+  "reloadTitle": {
+    "message": "Recargar",
+    "description": ""
+  },
+  "openTabAria": {
+    "message": "Abrir WhatsApp en una pestaña",
+    "description": ""
+  },
+  "openTabTitle": {
+    "message": "Abrir en una pestaña",
+    "description": ""
+  },
+  "openSidePanelAria": {
+    "message": "Abrir en el panel lateral",
+    "description": ""
+  },
+  "openSidePanelTitle": {
+    "message": "Abrir panel lateral",
+    "description": ""
+  },
+  "panelAria": {
+    "message": "Panel de WhatsApp",
+    "description": ""
+  },
+  "preparingWhatsApp": {
+    "message": "Preparando tu WhatsApp",
+    "description": ""
+  },
+  "sessionInfo": {
+    "message": "La sesión utilizada es la misma que la del navegador.",
+    "description": ""
+  },
+  "slowNotice": {
+    "message": "¿Tarda demasiado? Inicia sesión una vez en una pestaña y vuelve a abrir el panel.",
+    "description": ""
+  },
+  "openLoginTab": {
+    "message": "Abrir para iniciar sesión",
+    "description": ""
+  },
+  "panelActiveNotice": {
+    "message": "WhatsApp ya está activo en el panel lateral.",
+    "description": ""
+  },
+  "openSidePanelAction": {
+    "message": "Abrir panel lateral",
+    "description": ""
+  },
+  "switchToPopup": {
+    "message": "Usar popup",
+    "description": ""
+  },
+  "notificationSoundEnabled": {
+    "message": "Alertas de sonido activadas.",
+    "description": ""
+  },
+  "notificationSoundDisabled": {
+    "message": "Alertas de sonido silenciadas.",
+    "description": ""
+  },
+  "shortcutHelp": {
+    "message": "Atajos: Alt más Shift más R recarga WhatsApp; Alt más Shift más S alterna el sonido.",
+    "description": ""
+  },
+  "unreadMessageSingularAria": {
+    "message": "1 mensaje no leído",
+    "description": ""
+  },
+  "unreadMessagePluralAria": {
+    "message": "$1 mensajes no leídos",
+    "description": "",
+    "placeholders": {
+      "1": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "unreadMessageSingularText": {
+    "message": "1 mensaje no leído.",
+    "description": ""
+  },
+  "unreadMessagePluralText": {
+    "message": "$1 mensajes no leídos.",
+    "description": "",
+    "placeholders": {
+      "1": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "noUnreadText": {
+    "message": "Ningún mensaje no leído.",
+    "description": ""
+  },
+  "consoleErrorInit": {
+    "message": "ZapDock no pudo iniciar el monitor:",
+    "description": ""
+  },
+  "consoleErrorAlert": {
+    "message": "ZapDock no pudo reproducir la alerta:",
+    "description": ""
+  },
+  "consoleErrorPanel": {
+    "message": "ZapDock no pudo abrir el panel lateral:",
+    "description": ""
+  },
+  "consoleErrorUpdate": {
+    "message": "Error al procesar una actualización de ZapDock:",
+    "description": ""
+  },
+  "offscreenJustification": {
+    "message": "Mantener el contador de mensajes no leídos y reproducir la alerta elegida por el usuario.",
+    "description": ""
+  },
+  "offscreenTitle": {
+    "message": "Monitor de ZapDock",
+    "description": ""
+  },
+  "offscreenIframeTitle": {
+    "message": "Monitor de mensajes no leídos de WhatsApp",
+    "description": ""
+  },
+  "consoleErrorOffscreen": {
+    "message": "No se pudo reproducir la alerta de ZapDock:",
+    "description": ""
+  }
+}

@@ -62,7 +62,7 @@ async function ensureOffscreenDocument() {
     url: OFFSCREEN_DOCUMENT,
     reasons: ["DOM_SCRAPING", "AUDIO_PLAYBACK"],
     justification:
-      "Manter o contador de mensagens não lidas e reproduzir o alerta escolhido pelo usuário."
+      chrome.i18n.getMessage("offscreenJustification")
   });
 }
 
@@ -75,7 +75,7 @@ async function initializeInfrastructure() {
       await updateActionBadge(unreadCount);
     })()
       .catch((error) => {
-        console.error("ZapDock não conseguiu iniciar o monitor:", error);
+        console.error(chrome.i18n.getMessage("consoleErrorInit"), error);
       })
       .finally(() => {
         initializationPromise = null;
@@ -135,7 +135,7 @@ async function playAlert() {
   try {
     await chrome.runtime.sendMessage({ type: "zapdock:play-alert" });
   } catch (error) {
-    console.warn("ZapDock não conseguiu reproduzir o alerta:", error);
+    console.warn(chrome.i18n.getMessage("consoleErrorAlert"), error);
   }
 }
 
@@ -195,7 +195,7 @@ async function openSidePanel() {
     await chrome.storage.local.set({ panelMode: "sidepanel" });
     return { opened: true };
   } catch (error) {
-    console.warn("ZapDock não conseguiu abrir o painel lateral:", error);
+    console.warn(chrome.i18n.getMessage("consoleErrorPanel"), error);
     return { opened: false, error: String(error) };
   }
 }
@@ -240,7 +240,7 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
   task
     .then(sendResponse)
     .catch((error) => {
-      console.error("Falha ao processar uma atualização do ZapDock:", error);
+      console.error(chrome.i18n.getMessage("consoleErrorUpdate"), error);
       sendResponse(null);
     });
 
