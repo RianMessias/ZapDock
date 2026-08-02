@@ -36,7 +36,7 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
   playAlert()
     .then(() => sendResponse({ played: true }))
     .catch((error) => {
-      console.error("Não foi possível tocar o alerta do ZapDock:", error);
+      console.error(chrome.i18n.getMessage("consoleErrorOffscreen"), error);
       sendResponse({ played: false });
     });
 

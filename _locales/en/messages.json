@@ -1,0 +1,206 @@
+{
+  "extName": {
+    "message": "ZapDock — Compact WhatsApp",
+    "description": ""
+  },
+  "extShortName": {
+    "message": "ZapDock",
+    "description": ""
+  },
+  "extDescription": {
+    "message": "Compact WhatsApp Web with sound alerts and unread message counter.",
+    "description": ""
+  },
+  "actionDefaultTitle": {
+    "message": "Open WhatsApp panel",
+    "description": ""
+  },
+  "commandActionDescription": {
+    "message": "Open the docked WhatsApp panel",
+    "description": ""
+  },
+  "controlsAriaLabel": {
+    "message": "ZapDock controls",
+    "description": ""
+  },
+  "stateConnecting": {
+    "message": "connecting",
+    "description": ""
+  },
+  "stateReady": {
+    "message": "panel active",
+    "description": ""
+  },
+  "stateSidepanel": {
+    "message": "side panel",
+    "description": ""
+  },
+  "stateOffline": {
+    "message": "offline",
+    "description": ""
+  },
+  "statusReady": {
+    "message": "WhatsApp ready to use.",
+    "description": ""
+  },
+  "statusOffline": {
+    "message": "No internet connection.",
+    "description": ""
+  },
+  "statusLoading": {
+    "message": "Loading WhatsApp.",
+    "description": ""
+  },
+  "noUnreadMessagesAria": {
+    "message": "No unread messages",
+    "description": ""
+  },
+  "soundDisableAria": {
+    "message": "Disable new message sound",
+    "description": ""
+  },
+  "soundEnableAria": {
+    "message": "Enable new message sound",
+    "description": ""
+  },
+  "soundDisableTitle": {
+    "message": "Disable sound",
+    "description": ""
+  },
+  "soundEnableTitle": {
+    "message": "Enable sound",
+    "description": ""
+  },
+  "reloadAria": {
+    "message": "Reload WhatsApp",
+    "description": ""
+  },
+  "reloadTitle": {
+    "message": "Reload",
+    "description": ""
+  },
+  "openTabAria": {
+    "message": "Open WhatsApp in a tab",
+    "description": ""
+  },
+  "openTabTitle": {
+    "message": "Open in a tab",
+    "description": ""
+  },
+  "openSidePanelAria": {
+    "message": "Open in side panel",
+    "description": ""
+  },
+  "openSidePanelTitle": {
+    "message": "Open side panel",
+    "description": ""
+  },
+  "panelAria": {
+    "message": "WhatsApp Panel",
+    "description": ""
+  },
+  "preparingWhatsApp": {
+    "message": "Preparing your WhatsApp",
+    "description": ""
+  },
+  "sessionInfo": {
+    "message": "The session used is the same as the browser.",
+    "description": ""
+  },
+  "slowNotice": {
+    "message": "Taking too long? Log in once in a tab and open the panel again.",
+    "description": ""
+  },
+  "openLoginTab": {
+    "message": "Open for login",
+    "description": ""
+  },
+  "panelActiveNotice": {
+    "message": "WhatsApp is already active in the side panel.",
+    "description": ""
+  },
+  "openSidePanelAction": {
+    "message": "Open side panel",
+    "description": ""
+  },
+  "switchToPopup": {
+    "message": "Use popup",
+    "description": ""
+  },
+  "notificationSoundEnabled": {
+    "message": "Sound alerts enabled.",
+    "description": ""
+  },
+  "notificationSoundDisabled": {
+    "message": "Sound alerts muted.",
+    "description": ""
+  },
+  "shortcutHelp": {
+    "message": "Shortcuts: Alt plus Shift plus R reloads WhatsApp; Alt plus Shift plus S toggles sound.",
+    "description": ""
+  },
+  "unreadMessageSingularAria": {
+    "message": "1 unread message",
+    "description": ""
+  },
+  "unreadMessagePluralAria": {
+    "message": "$1 unread messages",
+    "description": "",
+    "placeholders": {
+      "1": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "unreadMessageSingularText": {
+    "message": "1 unread message.",
+    "description": ""
+  },
+  "unreadMessagePluralText": {
+    "message": "$1 unread messages.",
+    "description": "",
+    "placeholders": {
+      "1": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "noUnreadText": {
+    "message": "No unread messages.",
+    "description": ""
+  },
+  "consoleErrorInit": {
+    "message": "ZapDock failed to start the monitor:",
+    "description": ""
+  },
+  "consoleErrorAlert": {
+    "message": "ZapDock failed to play the alert:",
+    "description": ""
+  },
+  "consoleErrorPanel": {
+    "message": "ZapDock failed to open the side panel:",
+    "description": ""
+  },
+  "consoleErrorUpdate": {
+    "message": "Failed to process a ZapDock update:",
+    "description": ""
+  },
+  "offscreenJustification": {
+    "message": "Maintain the unread message counter and play the user's chosen alert.",
+    "description": ""
+  },
+  "offscreenTitle": {
+    "message": "ZapDock Monitor",
+    "description": ""
+  },
+  "offscreenIframeTitle": {
+    "message": "WhatsApp unread messages monitor",
+    "description": ""
+  },
+  "consoleErrorOffscreen": {
+    "message": "Failed to play the ZapDock alert:",
+    "description": ""
+  }
+}

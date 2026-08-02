@@ -1,15 +1,16 @@
 {
   "manifest_version": 3,
-  "name": "ZapDock — WhatsApp compacto",
-  "short_name": "ZapDock",
+  "name": "__MSG_extName__",
+  "short_name": "__MSG_extShortName__",
   "version": "1.0.0",
-  "description": "WhatsApp Web compacto com alerta sonoro e contador de mensagens não lidas.",
+  "description": "__MSG_extDescription__",
+  "default_locale": "pt_BR",
   "minimum_chrome_version": "145",
   "background": {
     "service_worker": "background.js"
   },
   "action": {
-    "default_title": "Abrir painel do WhatsApp",
+    "default_title": "__MSG_actionDefaultTitle__",
     "default_popup": "popup.html",
     "default_icon": {
       "16": "icons/icon-16.png",
@@ -54,7 +55,7 @@
         "default": "Ctrl+Shift+Y",
         "mac": "Command+Shift+Y"
       },
-      "description": "Abrir o painel ancorado do WhatsApp"
+      "description": "__MSG_commandActionDescription__"
     }
   }
 }
